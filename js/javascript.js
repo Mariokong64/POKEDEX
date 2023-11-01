@@ -3,19 +3,22 @@ const botonesHeader = document.querySelectorAll(".btn-header");
 let URL = "https://pokeapi.co/api/v2/pokemon/";
 
 //Primero creamos un array
-const request = [];
+const requests = [];
 
 //Luego hacemos un for para que se repita 1017 veces que es el número de pokemon que hay en la API y los vamos metiendo al array
 for (let i = 1; i <= 1017; i++) {
-  request.push(
+  requests.push(
     fetch(URL + i)
       .then((response) => response.json())
   );
 }
 
+let pokemones = []; // Creamos un array para almacenar los datos de los Pokémon
+
 //Aquí se pasan todos los datos del array a la función para mostrarlos en la pantalla, pero solo hasta que se obtuvieron todas las solicitudes 
-Promise.all(request)
-  .then((pokemones) => {
+Promise.all(requests)
+  .then((pokemonesData) => {
+    pokemones = pokemonesData;
     pokemones.forEach((poke) => mostrarPokemon(poke));
   });
 
@@ -87,3 +90,27 @@ botonesHeader.forEach((boton) =>
     });
   })
 );
+
+//Aqui ponemos la funcionalidad del filtro de para buscar pokemon en específicos
+const inputNombre = document.querySelector("#name-filter");
+
+inputNombre.addEventListener("input", () => {
+  const textoFiltrado = inputNombre.value.toLowerCase();
+  listaPokemon.innerHTML = "";
+
+  pokemones.forEach((poke) => {
+    if (poke.name.includes(textoFiltrado)) {
+      mostrarPokemon(poke);
+    }
+  });
+});
+
+// Si el usuario borra el texto del filtro, vuelve a mostrar todos los Pokémon
+inputNombre.addEventListener("blur", () => {
+  if (inputNombre.value === "") {
+    listaPokemon.innerHTML = "";
+    pokemones.forEach((poke) => {
+      mostrarPokemon(poke);
+    });
+  }
+});

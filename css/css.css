@@ -90,7 +90,28 @@ header{
 
 .btn-header:hover{
     transform: scale(1.1);
-box-shadow: 0 0 2rem rgba(0,0,0,.25);
+    box-shadow: 0 0 2rem rgba(0,0,0,.25);
+}
+
+.filter-container{
+    font-weight: 600;
+}
+
+.name-filter{
+    height: 2.5rem;
+    background-color: var(--clr-gray); /* Color de fondo similar al de los botones */
+    padding: .5rem; /* Espaciado similar al de los botones */
+    border-radius: 100vmax; /* Bordes circulares */
+    cursor: text; /* Cambia el cursor al puntero de texto cuando pasas el mouse */
+    font-weight: 600;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.25);
+    border: none; /* Elimina el borde predeterminado del input */
+    max-width: 100%; /* Asegura que el ancho del input se ajuste al contenedor */
+}
+
+.name-filter:focus {
+    outline: none; /* Elimina el resplandor de enfoque predeterminado */
+    box-shadow: 0 0 2rem rgba(0, 0, 0, 0.25);
 }
 
 main{
